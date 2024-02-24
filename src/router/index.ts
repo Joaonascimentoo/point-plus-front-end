@@ -1,16 +1,23 @@
-/**
- * router/index.ts
- *
- * Automatic routes for `./src/pages/*.vue`
- */
+import { createRouter, createWebHistory } from "vue-router";
 
-// Composables
-import { createRouter, createWebHistory } from 'vue-router/auto'
-import { setupLayouts } from 'virtual:generated-layouts'
+const routes = [
+  {
+    path: "/",
+    name: "default",
+    redirect: "/login",
+    children: [
+      {
+        path: "/login",
+        name: "login",
+        component: () => import("@/pages/login.vue"),
+      },
+    ],
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  extendRoutes: setupLayouts,
-})
+  routes,
+});
 
-export default router
+export default router;
